@@ -3,7 +3,7 @@ import InputTag from "../components/InputTag";
 
 const SignInPage = () => {
   return (
-    <div className="text-center w-fit m-auto px-1 pt-[16.3%] ">
+    <div className="text-center w-fit m-auto px-1 pt-[15.3%] ">
       <h1 className="h1 mb-10">Sign In</h1>
       <InputTag type={"text"} placeholder={"Email"} />
       <InputTag type={"password"} placeholder={"Password"} />
