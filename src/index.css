@@ -21,14 +21,20 @@ body {
   background-color: #092c39;
 }
 
-.primary{
-  background-color: #2BD17E;
+.primary {
+  background-color: #2bd17e;
 }
 
 .h1 {
   font-weight: 600;
   line-height: 80px;
   font-size: 64px;
+}
+
+.h2 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
 }
 
 .body-small {
@@ -43,10 +49,10 @@ body {
   line-height: 24px;
 }
 
-.custom-checkbox{
-  @apply appearance-none h-4 w-4 rounded-md input-bg
+.custom-checkbox {
+  @apply appearance-none h-4 w-4 rounded-md input-bg;
 }
 
-.custom-checkbox:checked{
-  @apply bg-green-500 appearance-auto
+.custom-checkbox:checked {
+  @apply bg-green-500 appearance-auto;
 }
