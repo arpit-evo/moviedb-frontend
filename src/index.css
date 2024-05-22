@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: "Montserrat";
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.bg-color {
+  background-color: #093545;
+}
+
+.input-bg {
+  background-color: #224957;
+}
+
+.card-bg {
+  background-color: #092c39;
+}
+
+.primary{
+  background-color: #2BD17E;
+}
+
+.h1 {
+  font-weight: 600;
+  line-height: 80px;
+  font-size: 64px;
+}
+
+.body-small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.body-regular {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.custom-checkbox{
+  @apply appearance-none h-4 w-4 rounded-md input-bg
+}
+
+.custom-checkbox:checked{
+  @apply bg-green-500 appearance-auto
+}
