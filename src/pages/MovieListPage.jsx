@@ -11,7 +11,7 @@ const MovieListPage = () => {
     <>
       {movieList.length ? (
         <>
-          <div className="p-[7.5rem]">
+          <div className="p-30">
             <ListHeader />
             <MovieList />
           </div>
