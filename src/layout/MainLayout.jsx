@@ -8,7 +8,7 @@ const MainLayout = () => {
         <Outlet />
       </main>
       <footer>
-        <img src="/Vectors.svg" className="w-full h-28 mx-auto" />
+        <img src="/Vectors.svg" className="w-full mx-auto" />
       </footer>
     </div>
   );
