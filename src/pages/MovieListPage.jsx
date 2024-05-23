@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ListHeader from "../components/ListHeader";
 import MovieList from "../components/MovieList";
+import Pagination from "../components/Pagination";
 
 const MovieListPage = () => {
   const [movieList, setMovieList] = useState([""]);
@@ -9,10 +10,13 @@ const MovieListPage = () => {
   return (
     <>
       {movieList.length ? (
-        <div className="p-[7.5rem]">
-          <ListHeader />
-          <MovieList />
-        </div>
+        <>
+          <div className="p-[7.5rem]">
+            <ListHeader />
+            <MovieList />
+          </div>
+          <Pagination />
+        </>
       ) : (
         <div className="mx-auto w-fit text-center pt-[22.5%] ">
           <h2 className="h2 mb-10">Your movie list is empty</h2>
