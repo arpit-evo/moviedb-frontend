@@ -1,7 +1,11 @@
 import React from "react";
 import InputTag from "../components/InputTag";
+import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className="text-center w-fit m-auto px-1 pt-[15.3%] ">
       <h1 className="h1 mb-10">Sign In</h1>
@@ -11,7 +15,10 @@ const SignInPage = () => {
         <input type="checkbox" className="custom-checkbox" />
         <p className="body-small">Remember Me</p>
       </div>
-      <button className="body-regular primary w-[300px] h-14 rounded-xl">
+      <button
+        className="body-regular primary w-[300px] h-14 rounded-xl"
+        onClick={() => navigate("/movie-list")}
+      >
         Login
       </button>
     </div>
