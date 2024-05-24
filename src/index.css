@@ -1,12 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   font-family: "Montserrat";
-}
-
-.h-100vh {
-  height: 100vh;
 }
 
 .bg-color {
@@ -25,10 +22,10 @@ body {
   background-color: #2bd17e;
 }
 
-.card-bg{
-  background-color:rgba(9, 44, 57, 1) ;
+.card-bg {
+  background-color: rgba(9, 44, 57, 1);
 }
-.card-bg:hover{
+.card-bg:hover {
   background-color: rgba(8, 41, 53, 0.55);
 }
 
@@ -42,6 +39,12 @@ body {
   font-size: 48px;
   font-weight: 600;
   line-height: 56px;
+}
+
+.h3 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
 }
 
 .body-small {
@@ -67,5 +70,5 @@ body {
 }
 
 .custom-checkbox:checked {
-  @apply bg-green-500 appearance-auto;
+  @apply appearance-auto bg-green-500;
 }

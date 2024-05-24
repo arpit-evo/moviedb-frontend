@@ -9,6 +9,12 @@ export default {
       margin: {
         30: "7.5rem" /* 120px */,
       },
+      fontSize:{
+        64: "64px"
+      },
+      lineHeight:{
+        80: "80px"
+      }
     },
   },
   plugins: [],

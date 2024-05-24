@@ -5,7 +5,7 @@ import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
 
 const MovieListPage = () => {
-  const [movieList, setMovieList] = useState([""]);
+  const [movieList, setMovieList] = useState([]);
 
   return (
     <>
@@ -18,11 +18,11 @@ const MovieListPage = () => {
           <Pagination />
         </>
       ) : (
-        <div className="mx-auto w-fit text-center pt-[22.5%] ">
-          <h2 className="h2 mb-10">Your movie list is empty</h2>
+        <div className="w-[23.75rem] sm:w-fit text-center m-auto ">
+          <h2 className="h3 mb-10">Your movie list is empty</h2>
           <Link
             to="/add-movie"
-            className="h-14 body-regular primary  px-7 py-4 rounded-xl inline-block"
+            className="h-14 body-regular primary  px-7 py-4 rounded-xl inline-block w-full sm:w-[18.75rem]"
           >
             Add New Movie
           </Link>

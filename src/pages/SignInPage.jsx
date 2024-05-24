@@ -1,5 +1,4 @@
 import React from "react";
-import InputTag from "../components/InputTag";
 import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
@@ -7,16 +6,28 @@ const SignInPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="text-center w-fit m-auto px-1 pt-[15.3%] ">
-      <h1 className="h1 mb-10">Sign In</h1>
-      <InputTag type={"text"} placeholder={"Email"} />
-      <InputTag type={"password"} placeholder={"Password"} />
+    <div className="text-center w-[23.75rem] sm:w-[18.75rem] m-auto ">
+      <div className="mb-10 h2 sm:text-64 sm:leading-80">Sign In</div>
+      <input
+        type={"text"}
+        placeholder={"Email"}
+        value={""}
+        className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6 block body-small "
+      
+      />
+      <input
+        type={"password"}
+        placeholder={"Password"}
+        value={""}
+        className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6 block body-small "
+      
+      />
       <div className="flex w-fit gap-2 items-center mx-auto mb-6">
         <input type="checkbox" className="custom-checkbox" />
         <p className="body-small">Remember Me</p>
       </div>
       <button
-        className="body-regular primary w-[300px] h-14 rounded-xl"
+        className="body-regular primary w-full h-14 rounded-xl"
         onClick={() => navigate("/movie-list")}
       >
         Login
