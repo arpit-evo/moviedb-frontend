@@ -4,7 +4,7 @@ const SubmitButton = ({ text = "Submit" }) => {
   return (
     <button
       type="submit"
-      className="body-regular primary py-4 px-14 rounded-xl"
+      className="text-br w-full primary py-4  rounded-xl sm:px-20 sm:w-fit sm:h-fit"
     >
       {text}
     </button>

@@ -2,35 +2,34 @@ import React from "react";
 import CancelButton from "../components/CancelButton";
 import FileUploadContainer from "../components/FileUploadContainer";
 import SubmitButton from "../components/SubmitButton";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 const AddMoviePage = () => {
   return (
-    <div className="p-30">
-      <div>
-        <h2 className="h2">Create a new movie</h2>
-      </div>
-      <div className="mt-30 h-[504px] flex gap-32">
-        <FileUploadContainer />
-        <div>
+    <div className="px-6 py-20 sm:p-30">
+      <h2 className="text-h3 mb-20 sm:text-h2">Create a new movie</h2>
+      <div className="sm:max-h-[31.5rem] sm:grid sm:grid-cols-2 sm:grid-flow-row  ">
+        <div className="sm:h-fit">
           <input
             type="text"
             placeholder="Title"
-            className="h-11 w-[362px] rounded-lg input-bg p-4 :focus outline-none mb-6 block body-small "
+            className="h-11 w-full rounded-lg input-bg p-4  outline-none mb-6 block text-bs sm:max-w-[22.625rem] "
           />
           <input
             type="number"
             placeholder="Publishing year"
-            className="h-11 w-52 rounded-lg input-bg p-4 :focus outline-none mb-16 block body-small "
+            className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6  block text-bs sm:max-w-[13.5rem]"
             maxLength="4"
           />
-          <div className="gap-4 flex">
-            <CancelButton />
-            <SubmitButton />
-          </div>
+        </div>
+        <FileUploadContainer />
+        <div className="gap-4 flex sm:mt-14 ">
+          <CancelButton />
+          <SubmitButton />
         </div>
       </div>
     </div>
   );
 };
-//
+
 export default AddMoviePage;

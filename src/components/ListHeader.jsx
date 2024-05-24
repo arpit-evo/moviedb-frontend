@@ -8,17 +8,17 @@ const ListHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between mb-[7.5rem]">
+    <div className="flex justify-between mb-20 sm:mb-30">
       <FlexContainer>
-        <h2 className="h2">My Movies</h2>
+        <h2 className="text-h3 sm:text-h2">My Movies</h2>
         <CgAdd
-          className="text-[32px] mt-1 cursor-pointer"
+          className="text-2xl sm:text-[32px] sm:mt-1 cursor-pointer"
           onClick={() => navigate("/add-movie")}
         />
       </FlexContainer>
       <FlexContainer>
-        <p className="body-regular">Logout</p>
-        <MdLogout className="text-[32px]" />
+        <p className="hidden sm:block sm:text-br">Logout</p>
+        <MdLogout className="text-2xl sm:text-[32px]" />
       </FlexContainer>
     </div>
   );

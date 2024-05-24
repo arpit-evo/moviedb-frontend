@@ -17,7 +17,8 @@ const FileUploadContainer = () => {
 
   return (
     <div
-      className="w-[39.33%] h-full  input-bg  border-dashed border-white border-2 rounded-xl flex items-center cursor-pointer z-10"
+      className={`h-[23.25rem] w-full sm:w-[29.5625rem] sm:h-[31.5rem] input-bg  border-dashed
+       border-white border-2 rounded-xl flex items-center cursor-pointer z-10 mb-10 sm:row-span-3 sm:mb-0 sm:-order-2`}
       onClick={handleClick}
     >
       <input
@@ -27,10 +28,8 @@ const FileUploadContainer = () => {
         onChange={handleFileChange}
       />
       <div className="bg-transparent flex-grow ">
-        <div className="w-fit mx-auto">
-          <MdOutlineFileDownload className="text-2xl mx-auto" />
-          <div className="body-small">Drop an image here</div>
-        </div>
+        <MdOutlineFileDownload className="text-2xl mx-auto mb-2" />
+        <div className="text-bs text-center">Drop an image here</div>
       </div>
     </div>
   );

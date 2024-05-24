@@ -3,8 +3,8 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div className="bg-color min-h-screen flex flex-col  text-white">
-      <main className="flex flex-grow">
+    <div className="bg-color min-h-screen flex flex-col  text-white overflow-hidden">
+      <main className="flex flex-col flex-grow">
         <Outlet />
       </main>
       <footer>
