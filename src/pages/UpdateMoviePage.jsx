@@ -7,7 +7,7 @@ const UpdateMoviePage = () => {
   return (
     <div className="px-6 py-20 sm:p-30">
       <h2 className="text-h3 mb-20 sm:text-h2">Edit</h2>
-      <div className="sm:max-h-[31.5rem] sm:grid sm:grid-cols-2 sm:grid-flow-row  ">
+      <div className="sm:max-h-[31.5rem] sm:max-w-[68rem] sm:gap-x-32 sm:grid sm:grid-cols-2 sm:grid-flow-row  ">
         <div className="sm:h-fit">
           <input
             type="text"

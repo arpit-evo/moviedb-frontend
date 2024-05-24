@@ -17,7 +17,7 @@ const FileUploadContainer = () => {
 
   return (
     <div
-      className={`h-[23.25rem] w-full sm:w-[29.5625rem] sm:h-[31.5rem] input-bg  border-dashed
+      className={`h-[23.25rem] w-full sm:max-w-[29.5625rem] sm:h-[31.5rem] input-bg  border-dashed
        border-white border-2 rounded-xl flex items-center cursor-pointer z-10 mb-10 sm:row-span-3 sm:mb-0 sm:-order-2`}
       onClick={handleClick}
     >
