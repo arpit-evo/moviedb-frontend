@@ -13,10 +13,29 @@ const MovieListPage = () => {
 
   const navigate = useNavigate();
   const token = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
 
   useEffect(() => {
     if (!token) {
-      navigate("/", { replace: true });
+      if (!refreshToken) {
+        navigate("/", { replace: true });
+      } else {
+        try {
+          const refershLogin = async () => {
+            const response = await axios.post(
+              `${import.meta.env.VITE_BASE_URL}/api/user/refresh-token`,
+              {},
+              { withCredentials: true }
+            );
+            console.log(response.data);
+          };
+
+          refershLogin();
+        } catch (error) {
+          console.log(error);
+          setError(error.response.data.message);
+        }
+      }
     } else {
       const fetchMovies = async () => {
         try {
