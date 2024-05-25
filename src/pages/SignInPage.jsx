@@ -1,21 +1,24 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        `${import.meta.env.VITE_BASE_URL}/api/user/login`,
         {
           email: email,
           password: password,
+          rememberMe: rememberMe,
         },
         {
           headers: {
@@ -23,9 +26,15 @@ const SignInPage = () => {
           },
         }
       );
-      Cookies.set("accessToken",response.data.accessToken)
-      // Cookies.set("refreshToken",response.data.refreshToken)
-      console.log();
+      Cookies.set("accessToken", response.data.accessToken, {
+        expires: 1 / 24,
+      });
+      Cookies.set("refreshToken", response.data.accessToken, {
+        expires: rememberMe ? 7 : 1,
+        secure: true,
+      });
+
+      navigate("/movie-list");
     } catch (error) {
       console.log(error.message);
     }
@@ -53,7 +62,12 @@ const SignInPage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <div className="flex w-fit gap-2 items-center mx-auto mb-6">
-        <input type="checkbox" className="custom-checkbox" />
+        <input
+          type="checkbox"
+          className="custom-checkbox"
+          name="rememberMe"
+          onClick={() => setRememberMe(!rememberMe)}
+        />
         <p className="text-bs">Remember Me</p>
       </div>
       <button
