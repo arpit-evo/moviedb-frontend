@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [errorMesssage, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,7 +36,8 @@ const SignInPage = () => {
 
       navigate("/movie-list");
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+      setError(error.response.data.message);
     }
   };
 
@@ -50,7 +51,12 @@ const SignInPage = () => {
         name="email"
         required
         className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6 block text-bs "
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          if (errorMesssage) {
+            setError("");
+          }
+        }}
       />
       <input
         type={"password"}
@@ -59,17 +65,25 @@ const SignInPage = () => {
         value={password}
         required
         className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6 block text-bs "
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          if (errorMesssage) {
+            setError("");
+          }
+        }}
       />
       <div className="flex w-fit gap-2 items-center mx-auto mb-6">
         <input
           type="checkbox"
           className="custom-checkbox"
           name="rememberMe"
-          onClick={() => setRememberMe(!rememberMe)}
+          onClick={() => {
+            setRememberMe(!rememberMe);
+          }}
         />
         <p className="text-bs">Remember Me</p>
       </div>
+      {errorMesssage && <div className="text-red-500">{errorMesssage}</div>}
       <button
         className="text-br primary w-full h-14 rounded-xl"
         onClick={handleSubmit}
