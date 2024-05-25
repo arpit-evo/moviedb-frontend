@@ -1,19 +1,36 @@
-import React, { useRef } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { MdOutlineFileDownload } from "react-icons/md";
 
-const FileUploadContainer = () => {
+const FileUploadContainer = ({ getImageUrl }) => {
+  const [imageUrl, setUrl] = useState("");
   const inputRef = useRef(null);
+  const formdata = new FormData();
 
   const handleClick = () => {
     inputRef.current.click();
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Selected file:", file.name);
+      formdata.append("file", file);
+      formdata.append("upload_preset", "upload_preset");
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_CLOUDINARY_UPLOAD_URL}`,
+        formdata
+      );
+      setUrl(response.data.url);
     }
+    getImageUrl(imageUrl);
   };
+
+  useEffect(() => {
+    if (imageUrl) {
+      getImageUrl(imageUrl);
+    }
+  }, [imageUrl]);
 
   return (
     <div
