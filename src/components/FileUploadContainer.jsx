@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MdOutlineFileDownload } from "react-icons/md";
 
 const FileUploadContainer = ({ getImageUrl }) => {
-  const [imageUrl, setUrl] = useState("");
+  const [imageUrl, setUrl] = useState();
   const inputRef = useRef(null);
   const formdata = new FormData();
 
@@ -11,6 +11,10 @@ const FileUploadContainer = ({ getImageUrl }) => {
     inputRef.current.click();
   };
 
+  // if (!url) {
+  //   setUrl()
+  // }
+   
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -44,10 +48,12 @@ const FileUploadContainer = ({ getImageUrl }) => {
         ref={inputRef}
         onChange={handleFileChange}
       />
+      {imageUrl ? <img src={imageUrl} className="w-full h-full rounded-xl" />: 
       <div className="bg-transparent flex-grow ">
         <MdOutlineFileDownload className="text-2xl mx-auto mb-2" />
         <div className="text-bs text-center">Drop an image here</div>
       </div>
+      }
     </div>
   );
 };

@@ -7,10 +7,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const AddUpdateMovie = ({ heading }) => {
-  const formData = new FormData();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState();
   const [errorMesssage, setError] = useState("");
-  const [imageUrl, setUrl] = useState("");
+  const [imageUrl, setUrl] = useState();
   const [publishingYear, setYear] = useState();
   const token = Cookies.get("accessToken");
   const navigate = useNavigate();
@@ -21,10 +20,10 @@ const AddUpdateMovie = ({ heading }) => {
   const handleCancel = () => {
     setTitle("");
     setYear("");
+    setImageUrl(null)
   };
+
   const handleSubmit = async () => {
-    formData.append("title", title);
-    formData.append("publishingYear", publishingYear);
     try {
       await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/movie/add`,
@@ -44,7 +43,7 @@ const AddUpdateMovie = ({ heading }) => {
       navigate("/movie-list");
     } catch (error) {
       console.log(error);
-       setError(error.response.data.message);
+      setError(error.response.data.message);
     }
   };
 
@@ -58,25 +57,37 @@ const AddUpdateMovie = ({ heading }) => {
             name="title"
             value={title}
             placeholder="Title"
+            required
             className="h-11 w-full rounded-lg input-bg p-4  outline-none mb-6 block text-bs sm:max-w-[22.625rem] "
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              if (errorMesssage) {
+                setError("");
+              }
+            }}
           />
           <input
             type="number"
             placeholder="Publishing year"
             name="year"
             value={publishingYear}
+            required
             className="h-11 w-full rounded-lg input-bg p-4 :focus outline-none mb-6  block text-bs sm:max-w-[13.5rem]"
             maxLength="4"
-            onChange={(e) => setYear(e.target.value)}
+            onChange={(e) => {
+              setYear(e.target.value);
+              if (errorMesssage) {
+                setError("");
+              }
+            }}
           />
+          {errorMesssage && <div className="text-red-500">{errorMesssage}</div>}
         </div>
-        <FileUploadContainer getImageUrl={setImageUrl} />
+        <FileUploadContainer getImageUrl={setImageUrl} url={imageUrl} />
         <div className="gap-4 flex sm:mt-14 ">
           <CancelButton handleCancel={handleCancel} />
           <SubmitButton handleSubmit={handleSubmit} />
         </div>
-        {errorMesssage && <div className="text-red-500">{errorMesssage}</div>}
       </div>
     </div>
   );
