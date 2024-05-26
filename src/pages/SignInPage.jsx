@@ -26,11 +26,13 @@ const SignInPage = () => {
           },
         }
       );
-      Cookies.set("accessToken", response.data.accessToken,{
-        expires: 1 / 24,
+      Cookies.set("accessToken", response.data.accessToken, {
+        expires: new Date(new Date().getTime() + 60 * 60 * 1000),
       });
-      Cookies.set("refreshToken", response.data.accessToken,{
-        expires: rememberMe ? 7 : 1
+      Cookies.set("refreshToken", response.data.refreshToken, {
+        expires: rememberMe
+          ? new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+          : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
       });
 
       navigate("/movie-list");
