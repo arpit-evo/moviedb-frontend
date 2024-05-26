@@ -47,22 +47,22 @@ const Pagination = ({ sendCurrentPage }) => {
 
   return (
     <div className="body-regular w-fit items-center text-center flex gap-2 mx-auto mb-20 sm:mb-28">
-      <div className="pr-2" onClick={handlePrevBtn}>
+      <div className="pr-2 cursor-pointer" onClick={handlePrevBtn}>
         Prev
       </div>
       <div
-        className={`p-1 rounded w-8 ${isPrimaryColor ? "primary" : "card-bg"}`}
+        className={`p-1 rounded w-8 cursor-pointer ${isPrimaryColor ? "primary" : "card-bg"}`}
         onClick={handlePaginationBtn}
       >
         {leftPagiNum}
       </div>
       <div
-        className={`p-1 rounded w-8 ${!isPrimaryColor ? "primary" : "card-bg"}`}
+        className={`p-1 rounded w-8 cursor-pointer ${!isPrimaryColor ? "primary" : "card-bg"}`}
         onClick={handlePaginationBtn}
       >
         {rightPagiNum}
       </div>
-      <div className="pl-2" onClick={handleNextBtn}>
+      <div className="pl-2 cursor-pointer" onClick={handleNextBtn}>
         Next
       </div>
     </div>
