@@ -26,12 +26,11 @@ const SignInPage = () => {
           },
         }
       );
-      Cookies.set("accessToken", response.data.accessToken, {
+      Cookies.set("accessToken", response.data.accessToken,{
         expires: 1 / 24,
       });
-      Cookies.set("refreshToken", response.data.accessToken, {
-        expires: rememberMe ? 7 : 1,
-        secure: true,
+      Cookies.set("refreshToken", response.data.accessToken,{
+        expires: rememberMe ? 7 : 1
       });
 
       navigate("/movie-list");
