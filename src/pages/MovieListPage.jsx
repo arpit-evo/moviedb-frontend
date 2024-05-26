@@ -24,10 +24,12 @@ const MovieListPage = () => {
           const refershLogin = async () => {
             const response = await axios.post(
               `${import.meta.env.VITE_BASE_URL}/api/user/refresh-token`,
-              {},
+              {
+                refreshToken: refreshToken
+              },
               { withCredentials: true }
             );
-            console.log(response.data);
+            Cookies.set("accessToken",response.data.accessToken)
           };
 
           refershLogin();
@@ -55,7 +57,7 @@ const MovieListPage = () => {
       };
       fetchMovies();
     }
-  }, [currentPage]);
+  }, [currentPage,token]);
 
   const getCurrentPage = (data) => {
     setCurrentPage(data);
@@ -77,6 +79,9 @@ const MovieListPage = () => {
       ) : (
         <div className="w-[23.75rem] sm:w-fit text-center m-auto ">
           <h2 className="text-h3 mb-10 sm:text-h2">Your movie list is empty</h2>
+          {errorMesssage && (
+              <div className="text-red-500">{errorMesssage}</div>
+            )}
           <Link
             to="/add-movie"
             className="h-14 text-br primary py-4 rounded-xl inline-block w-full sm:px-10 sm:w-fit"
