@@ -6,8 +6,10 @@ const Pagination = ({ currentPage, onPageChange }) => {
   const [rightPagiNum, setRightPagiNum] = useState(currentPage + 1);
   const [isPrimaryColor, setPrimaryColor] = useState(true);
 
-  const handlePaginationBtn = (pageNum) => {
-    setPrimaryColor(!isPrimaryColor);
+  const handlePaginationBtn = (pageNum, e) => {
+    if (e.target.innerHTML !== pageNum) {
+      setPrimaryColor(!isPrimaryColor);
+    }
     onPageChange(pageNum); // Update the current page state
   };
 
@@ -60,7 +62,7 @@ const Pagination = ({ currentPage, onPageChange }) => {
         className={`p-1 rounded w-8 cursor-pointer ${
           !isPrimaryColor ? "primary" : "card-bg"
         }`}
-        onClick={() => handlePaginationBtn(rightPagiNum)}
+        onClick={(e) => handlePaginationBtn(rightPagiNum, e)}
       >
         {rightPagiNum}
       </Link>
