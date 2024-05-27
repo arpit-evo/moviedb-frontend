@@ -3,7 +3,7 @@ import AddUpdateMovie from "../components/AddUpdateMovie";
 
 const AddMoviePage = () => {
 
-  return <AddUpdateMovie heading={"Create a new movie"} />;
+  return <AddUpdateMovie  />;
 };
 
 export default AddMoviePage;
