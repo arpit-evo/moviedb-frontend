@@ -20,7 +20,7 @@ const ListHeader = () => {
         <h2 className="text-h3 sm:text-h2">My Movies</h2>
         <CgAdd
           className="text-2xl sm:text-[32px] sm:mt-1 cursor-pointer"
-          onClick={() => navigate("/add-movie")}
+          onClick={() => navigate("/add")}
         />
       </FlexContainer>
       <FlexContainer>
