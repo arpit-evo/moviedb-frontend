@@ -88,6 +88,12 @@ export default {
           },
         ],
       },
+      borderColor: {
+        input: "#224957",
+      },
+      textColor: {
+        input: "#224957",
+      },
     },
   },
   plugins: [],
