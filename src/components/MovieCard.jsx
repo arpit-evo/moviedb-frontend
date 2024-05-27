@@ -17,7 +17,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={movie.imageUrl}
           alt="movie poster"
-          className="object-cover h-full w-full rounded-t-xl sm:rounded-xl"
+          className="object-cover h-full w-full rounded-t-xl sm:rounded-xl object-center"
         />
       </div>
       <div className="gap-2 p-3 sm:p-2">

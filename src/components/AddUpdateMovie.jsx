@@ -86,7 +86,7 @@ const AddUpdateMovie = () => {
           }
         );
 
-        navigate("/movie-list");
+        navigate("/movie-list", { replace: true });
       } catch (error) {
         console.log(error);
         setError(error.response.data.message);
@@ -108,7 +108,7 @@ const AddUpdateMovie = () => {
           }
         );
 
-        navigate("/movie-list");
+        navigate("/movie-list", { replace: true });
       } catch (error) {
         console.log(error);
         setError(error.response.data.message);
