@@ -48,89 +48,54 @@ const Pagination = ({ currentPage, onPageChange }) => {
   const [rightPagiNum, setRightPagiNum] = useState(currentPage + 1);
   const [isPrimaryColor, setPrimaryColor] = useState(true);
 
-  useEffect(() => {
-    // if (!isPrimaryColor) {
-    //   setLeftPagiNum(currentPage);
-    //   setRightPagiNum(currentPage + 1);
-    // }
-    // setPrimaryColor(true);
-  }, [currentPage]);
 
-  const handlePaginationBtn = (pageNum, isPrev = false, isNext = false) => {
-    if (pageNum === 1) {
-      setPrimaryColor(true);
-      setLeftPagiNum(pageNum);
-      setRightPagiNum(pageNum + 1);
-    } else if (isPrev) {
-      setPrimaryColor(true);
-      if (isPrimaryColor && leftPagiNum - 1 > 0) {
-        setRightPagiNum(pageNum + 1);
-        setLeftPagiNum(pageNum);
-      }
-    } else if (isNext) {
-      if (pageNum === 2 && leftPagiNum < pageNum) {
-        setPrimaryColor(false);
-      }
-      setPrimaryColor(false);
-      if (!isPrimaryColor) {
-        setLeftPagiNum(rightPagiNum);
-        setRightPagiNum(rightPagiNum + 1);
-      }
-    }
+  const handlePaginationBtn = (pageNum) => {
+    setPrimaryColor(!isPrimaryColor);
     onPageChange(pageNum); // Update the current page state
   };
 
-  // const handlePrevBtn = () => {
-  //   if (currentPage === 1) {
-  //     setPrimaryColor(true);
-  //   }
-
-  //   setPrimaryColor(true);
-  //   if (isPrimaryColor && leftPagiNum - 1 > 0) {
-  //     setRightPagiNum(leftPagiNum);
-  //     setLeftPagiNum(leftPagiNum - 1);
-  //   }
-  // };
-
-  // const handleNextBtn = () => {
-  //   if (rightPagiNum === 2) {
-  //     setPrimaryColor(false);
-  //     setCurrentPage(rightPagiNum);
-  //   }
-
-  //   setPrimaryColor(false);
-  //   if (!isPrimaryColor) {
-  //     setLeftPagiNum(rightPagiNum);
-  //     setRightPagiNum(rightPagiNum + 1);
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
-
   const handlePrevBtn = () => {
-    if (leftPagiNum > 1) {
-      handlePaginationBtn(leftPagiNum - 1, true);
+    if (currentPage === 1) {
+      setPrimaryColor(true);
+    }
+
+    setPrimaryColor(true);
+    if (isPrimaryColor && leftPagiNum - 1 > 0) {
+      setRightPagiNum(leftPagiNum);
+      setLeftPagiNum(leftPagiNum - 1);
     }
   };
 
   const handleNextBtn = () => {
-    handlePaginationBtn(rightPagiNum);
+    if (rightPagiNum === 2) {
+      setPrimaryColor(false);
+    }
+
+    setPrimaryColor(false);
+    if (!isPrimaryColor) {
+      setLeftPagiNum(rightPagiNum);
+      setRightPagiNum(rightPagiNum + 1);
+    }
   };
+
 
   return (
     <div className="body-regular w-fit items-center text-center flex gap-2 mx-auto mb-20 sm:mb-28">
-      <Link
-        to={`?page=${leftPagiNum - 1 > 0 ? leftPagiNum - 1 : ""}`}
-        className="pr-2 cursor-pointer"
-        onClick={handlePrevBtn}
-      >
-        Prev
-      </Link>
+      {leftPagiNum - 1 > 0 && (
+        <Link
+          to={`?page=${leftPagiNum - 1}`}
+          className="pr-2 cursor-pointer"
+          onClick={handlePrevBtn}
+        >
+          Prev
+        </Link>
+      )}
       <Link
         to={`?page=${leftPagiNum}`}
         className={`p-1 rounded w-8 cursor-pointer ${
           isPrimaryColor ? "primary" : "card-bg"
         }`}
-        onClick={() => handlePaginationBtn(leftPagiNum, true)}
+        onClick={() => handlePaginationBtn(leftPagiNum)}
       >
         {leftPagiNum}
       </Link>
@@ -139,12 +104,12 @@ const Pagination = ({ currentPage, onPageChange }) => {
         className={`p-1 rounded w-8 cursor-pointer ${
           !isPrimaryColor ? "primary" : "card-bg"
         }`}
-        onClick={() => handlePaginationBtn(rightPagiNum, false, true)}
+        onClick={() => handlePaginationBtn(rightPagiNum)}
       >
         {rightPagiNum}
       </Link>
       <Link
-        to={`?page=${rightPagiNum + 1}`}
+        to={`?page=${currentPage + 1}`}
         className="pl-2 cursor-pointer"
         onClick={handleNextBtn}
       >
