@@ -34,29 +34,7 @@ const MovieListPage = () => {
       }
     };
 
-    if (!token) {
-      if (!refreshToken) {
-        navigate("/", { replace: true });
-      } else {
-        const refreshLogin = async () => {
-          try {
-            const response = await axios.post(
-              `${import.meta.env.VITE_BASE_URL}/api/user/refresh-token`,
-              { refreshToken },
-              { withCredentials: true }
-            );
-            Cookies.set("accessToken", response.data.accessToken);
-            fetchMovies(); // Fetch movies after refreshing the token
-          } catch (error) {
-            console.log(error);
-            setError(error.response?.data?.message || "An error occurred");
-          }
-        };
-        refreshLogin();
-      }
-    } else {
-      fetchMovies();
-    }
+    fetchMovies();
   }, [currentPage, token, refreshToken, navigate]);
 
   const handlePageChange = (newPage) => {
