@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useRef, useState } from "react";
 import { MdOutlineFileDownload } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddUpdateMovie = () => {
   const [file, setFile] = useState();
@@ -10,8 +10,12 @@ const AddUpdateMovie = () => {
   const [publishingYear, setYear] = useState("");
   const [tempfileUrl, setTempUrl] = useState("");
   const [errorMesssage, setError] = useState("");
+
   const token = Cookies.get("accessToken");
   const navigate = useNavigate();
+
+  const { id } = useParams();
+  const [isEdit, setIsEdit] = useState(!!id);
 
   const inputRef = useRef(null);
 
@@ -25,6 +29,30 @@ const AddUpdateMovie = () => {
     const fileUrl = URL.createObjectURL(event.target.files[0]);
     setTempUrl(fileUrl);
   };
+
+  if (isEdit) {
+    useEffect(() => {
+      const fetchMovieById = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_BASE_URL}/api/movie/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setTitle(response.data.movie.title);
+          setYear(response.data.movie.publishingYear);
+          setTempUrl(response.data.movie.imageUrl);
+        } catch (error) {
+          setError(error.response.data.message);
+        }
+      };
+
+      fetchMovieById();
+    }, [id]);
+  }
 
   useEffect(() => {
     console.log();
@@ -40,32 +68,60 @@ const AddUpdateMovie = () => {
     if (!tempfileUrl) {
       return setError("please upload image");
     }
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/movie/add`,
-        {
-          title: title,
-          publishingYear: publishingYear,
-          file: file,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
 
-      navigate("/movie-list");
-    } catch (error) {
-      console.log(error);
-      setError(error.response.data.message);
+    if (isEdit) {
+      try {
+        await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/api/movie/update/${id}`,
+          {
+            title: title,
+            publishingYear: publishingYear,
+            file: file,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        navigate("/movie-list");
+      } catch (error) {
+        console.log(error);
+        setError(error.response.data.message);
+      }
+    } else {
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/movie/add`,
+          {
+            title: title,
+            publishingYear: publishingYear,
+            file: file,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        navigate("/movie-list");
+      } catch (error) {
+        console.log(error);
+        setError(error.response.data.message);
+      }
     }
   };
 
   return (
     <div className="px-6 py-20 sm:p-30">
-      <h2 className="text-h3 mb-20 sm:text-h2">Create a new Movie</h2>
+      <h2 className="text-h3 mb-20 sm:text-h2">
+        {" "}
+        {isEdit ? "Edit" : "Create a new Movie"}
+      </h2>
       <div className="sm:max-h-[31.5rem] sm:max-w-[68rem] sm:gap-x-32 sm:grid sm:grid-cols-2 sm:grid-flow-row ">
         {/* input elements */}
         <div className="sm:h-fit">

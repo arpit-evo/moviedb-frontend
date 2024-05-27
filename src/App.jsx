@@ -55,7 +55,7 @@ const App = () => {
             element={isAuth ? <AddMoviePage /> : <SignInPage />}
           />
           <Route
-            path="/edit"
+            path="/edit/:id"
             element={isAuth ? <UpdateMoviePage /> : <SignInPage />}
           />
           <Route
