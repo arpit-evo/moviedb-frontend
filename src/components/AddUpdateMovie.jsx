@@ -169,7 +169,10 @@ const AddUpdateMovie = () => {
             onChange={handleFileChange}
           />
           {tempfileUrl ? (
-            <img src={tempfileUrl} className="w-full h-full rounded-xl" />
+            <img
+              src={tempfileUrl}
+              className="w-full h-full rounded-xl object-cover"
+            />
           ) : (
             <div className="bg-transparent flex-grow ">
               <MdOutlineFileDownload className="text-2xl mx-auto mb-2" />
