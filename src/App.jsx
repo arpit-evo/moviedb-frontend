@@ -4,6 +4,7 @@ import AddMoviePage from "./pages/AddMoviePage";
 import MovieListPage from "./pages/MovieListPage";
 import SignInPage from "./pages/SignInPage";
 import UpdateMoviePage from "./pages/UpdateMoviePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<SignInPage />} />
           <Route path="/movie-list" element={<MovieListPage />} />
-          <Route path="/add-movie" element={<AddMoviePage />} />
-          <Route path="/update-movie" element={<UpdateMoviePage />} />
+          <Route path="/add" element={<AddMoviePage />} />
+          <Route path="/edit" element={<UpdateMoviePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>
