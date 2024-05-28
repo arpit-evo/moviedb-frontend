@@ -1,15 +1,15 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../apis/axiosInstance";
 import {
   ACCESS_TOKEN_EXPIRE_TIME,
   REFRESH_TOKEN_EXPIRE_TIME_LONG,
   REFRESH_TOKEN_EXPIRE_TIME_SHORT,
 } from "../globalVar";
 
-const SignInPage = () => {
+const SignInPage = ({ refreshAuth }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -25,8 +25,8 @@ const SignInPage = () => {
   const onSubmit = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/user/login`,
+      const response = await axiosInstance.post(
+        "/api/user/login",
         {
           email: email,
           password: password,
@@ -47,6 +47,7 @@ const SignInPage = () => {
           : REFRESH_TOKEN_EXPIRE_TIME_SHORT,
       });
 
+      refreshAuth();
       navigate("/movie-list");
     } catch (error) {
       console.log(error);
@@ -111,17 +112,35 @@ const SignInPage = () => {
             </p>
           )}
         </div>
-        <div className="flex w-fit gap-2 items-center mx-auto mb-6">
-          <input
-            type="checkbox"
-            className="custom-checkbox"
-            name="rememberMe"
-            onClick={() => {
-              setRememberMe(!rememberMe);
-            }}
-          />
-          <p className="text-bs">Remember Me</p>
-        </div>
+        {/* checkbox */}
+        <label className="flex w-fit items-center text-center cursor-pointer mx-auto gap-2 text-bs mb-7">
+          <div className="relative h-5">
+            <input
+              type="checkbox"
+              className={`appearance-none w-5 h-5 rounded-md cursor-pointer ${
+                rememberMe ? "primary" : "input-bg"
+              }`}
+              checked={rememberMe}
+              onChange={() => {
+                setRememberMe(!rememberMe);
+              }}
+            />
+            <svg
+              className={`absolute w-4 h-4 text-white top-[3px] ${
+                rememberMe ? "visible" : "invisible"
+              }`}
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M19.707,2.293c0.391,0.391,0.391,1.023,0,1.414l-10,10c-0.391,0.391-1.023,0.391-1.414,0l-5-5c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0L9,11.586L18.293,2.293C18.684,1.902,19.316,1.902,19.707,2.293z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          Remeber Me
+        </label>
         {errorMesssage && <div className="text-red-500">{errorMesssage}</div>}
         <button
           className="text-br primary w-full h-14 rounded-xl"

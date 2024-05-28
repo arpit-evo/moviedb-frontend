@@ -28,11 +28,3 @@ body {
 .card-bg:hover {
   background-color: rgba(8, 41, 53, 0.55);
 }
-
-.custom-checkbox {
-  @apply appearance-none h-4 w-4 rounded-md primary;
-}
-
-.custom-checkbox:checked {
-  @apply appearance-auto bg-green-500;
-}
