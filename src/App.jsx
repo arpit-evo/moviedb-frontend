@@ -8,6 +8,10 @@ import SignInPage from "./pages/SignInPage";
 import UpdateMoviePage from "./pages/UpdateMoviePage";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {
+  ACCESS_TOKEN_EXPIRE_TIME,
+  REFRESH_TOKEN_EXPIRE_TIME_SHORT,
+} from "./globalVar";
 
 const App = () => {
   const [token, setToken] = useState(Cookies.get("accessToken"));
@@ -24,10 +28,10 @@ const App = () => {
             { withCredentials: true }
           );
           Cookies.set("accessToken", response.data.accessToken, {
-            expires: new Date(new Date().getTime() + 60 * 60 * 1000),
+            expires: ACCESS_TOKEN_EXPIRE_TIME,
           });
           Cookies.set("refreshToken", response.data.newRefreshToken, {
-            expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+            expires: REFRESH_TOKEN_EXPIRE_TIME_SHORT,
           });
           setToken(response.data.accessToken);
           setIsAuth(true);

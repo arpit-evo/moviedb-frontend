@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import {
+  ACCESS_TOKEN_EXPIRE_TIME,
+  REFRESH_TOKEN_EXPIRE_TIME_LONG,
+  REFRESH_TOKEN_EXPIRE_TIME_SHORT,
+} from "../globalVar";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -34,12 +39,12 @@ const SignInPage = () => {
         }
       );
       Cookies.set("accessToken", response.data.accessToken, {
-        expires: new Date(new Date().getTime() + 60 * 60 * 1000),
+        expires: ACCESS_TOKEN_EXPIRE_TIME,
       });
       Cookies.set("refreshToken", response.data.refreshToken, {
         expires: rememberMe
-          ? new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-          : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+          ? REFRESH_TOKEN_EXPIRE_TIME_LONG
+          : REFRESH_TOKEN_EXPIRE_TIME_SHORT,
       });
 
       navigate("/movie-list");
