@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 
 const MovieList = ({ movies }) => {
   return (
-    <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-6 sm:grid-cols-4">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
       {movies.map((movie) => (
         <MovieCard key={movie._id} movie={movie} />
       ))}

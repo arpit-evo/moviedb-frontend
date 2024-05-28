@@ -7,13 +7,14 @@ const MovieCard = ({ movie }) => {
   const handleClick = () => {
     navigate(`/edit/${movie._id}`);
   };
-
+  // big 266px
+  //small 180px
   return (
     <div
-      className="w-[11.25rem] card-bg sm:w-[17.625rem] sm:p-2 rounded-xl cursor-pointer"
+      className="card-bg sm:p-2 rounded-xl cursor-pointer mx-auto max-w-fit "
       onClick={handleClick}
     >
-      <div className="h-[15.375rem] sm:h-[25rem] w-full sm:mb-4">
+      <div className="h-[15.375rem] sm:h-[25rem]  w-full sm:mb-4">
         <img
           src={movie.imageUrl}
           alt="movie poster"
