@@ -1,7 +1,7 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import axiosInstance from "../apis/axiosInstance";
 import ListHeader from "../components/ListHeader";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
@@ -19,17 +19,11 @@ const MovieListPage = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/api/movie/?page=${currentPage}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        const response = await axiosInstance.get(
+          `/api/movie/?page=${currentPage}`
         );
         setMovieList(response.data.movies);
       } catch (error) {
-        console.log(error);
         setError(error.response?.data?.message || "An error occurred");
       }
     };
