@@ -1,9 +1,9 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import axiosInstance from "../apis/axiosInstance";
 
 const AddUpdateMovie = () => {
   const [file, setFile] = useState();
@@ -42,14 +42,7 @@ const AddUpdateMovie = () => {
     useEffect(() => {
       const fetchMovieById = async () => {
         try {
-          const response = await axios.get(
-            `${import.meta.env.VITE_BASE_URL}/api/movie/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const response = await axiosInstance.get(`/api/movie/${id}`);
           setTitle(response.data.movie.title);
           setYear(response.data.movie.publishingYear);
           setTempUrl(response.data.movie.imageUrl);
@@ -79,8 +72,8 @@ const AddUpdateMovie = () => {
     setIsLoading(true);
     try {
       if (isEdit) {
-        await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/api/movie/update/${id}`,
+        await axiosInstance.put(
+          `/api/movie/update/${id}`,
           {
             title: title,
             publishingYear: publishingYear,
@@ -88,14 +81,13 @@ const AddUpdateMovie = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
         );
       } else {
-        await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/api/movie/add`,
+        await axiosInstance.post(
+          `/api/movie/add`,
           {
             title: title,
             publishingYear: publishingYear,
@@ -103,7 +95,6 @@ const AddUpdateMovie = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
