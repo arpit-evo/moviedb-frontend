@@ -8,7 +8,7 @@ import axiosInstance from "../apis/axiosInstance";
 const AddUpdateMovie = () => {
   const [file, setFile] = useState();
   const [title, setTitle] = useState("");
-  const [publishingYear, setYear] = useState("");
+  const [publishingYear, setYear] = useState();
   const [tempfileUrl, setTempUrl] = useState("");
   const [errorMesssage, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ const AddUpdateMovie = () => {
 
   const handleCancel = () => {
     setTitle("");
-    setYear("");
+    setYear();
     setTempUrl("");
   };
 

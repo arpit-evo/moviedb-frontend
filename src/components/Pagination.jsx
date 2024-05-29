@@ -77,7 +77,7 @@ const Pagination = ({ count, currentPage, onPageChange }) => {
           Next
         </Link>
       ) : (
-        <span className="text-gray-400">Prev</span>
+        <span className="text-gray-400">Next</span>
       )}
     </div>
   );
