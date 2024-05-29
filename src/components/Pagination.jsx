@@ -41,7 +41,7 @@ const Pagination = ({ count, currentPage, onPageChange }) => {
     <div className="body-regular w-fit items-center text-center flex gap-2 mx-auto mb-20 sm:mb-28">
       {currentPage - 1 > 0 ? (
         <Link
-          to={`?page=${leftPagiNum - 1}`}
+          to={`?page=${currentPage- 1}`}
           className="pr-2 cursor-pointer"
           onClick={handlePrevBtn}
         >

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const Dropdown = ({ onselect ,search}) => {
+const Dropdown = ({ onselect }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -11,13 +11,6 @@ const Dropdown = ({ onselect ,search}) => {
     onselect(event.target.getAttribute("data-key"));
   };
 
-   useEffect(() => {
-     if (search) {
-       setSelectedOption("");
-       setIsOpen(false)
-     }
-   }, [search]);
-
   return (
     <div className="w-fit">
       <button
@@ -26,7 +19,7 @@ const Dropdown = ({ onselect ,search}) => {
         }`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {search.length > 0 ? selectedOption  : "Sort By" }
+        {selectedOption || "Sort By"}
         {isOpen ? (
           <IoIosArrowUp className="text-xl " />
         ) : (

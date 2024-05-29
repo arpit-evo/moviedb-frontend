@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axiosInstance from "../apis/axiosInstance";
 import Dropdown from "../components/Dropdown";
 import ListHeader from "../components/ListHeader";
@@ -24,17 +24,19 @@ const MovieListPage = () => {
     }));
   };
 
+  const navigate = useNavigate();
   const handleOrderBtn = (e) => {
     setSortBy((prevSortBy) => ({
       ...prevSortBy,
       order: prevSortBy.order === "asc" ? "desc" : "asc",
     }));
   };
-
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const currentPage =
+    Number(searchParams.get("page")) > 1 ? Number(searchParams.get("page")) : 1;
 
   const token = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -48,13 +50,14 @@ const MovieListPage = () => {
         setError(error.response?.data?.message || "An error occurred");
       }
     };
-    setTimeout(() => {
-      if (search === "") {
-        setSortBy({ sort: "title", order: "asc" });
-      }
 
-      fetchMovies();
-    }, 1000);
+    if (refreshToken) {
+      setTimeout(() => {
+        fetchMovies();
+      }, 500);
+    } else {
+      navigate("/sign-in");
+    }
   }, [currentPage, token, refreshToken, search, sortBy]);
 
   const handlePageChange = (newPage) => {
@@ -78,7 +81,7 @@ const MovieListPage = () => {
                 <RiSearchLine className="text-2xl mx-2" />
               </div>
               <div className="flex items-center text-center gap-3">
-                <Dropdown onselect={handleSelect} search={search} />
+                <Dropdown onselect={handleSelect} />
                 <button
                   className="input-bg px-4 py-2 text-sm rounded-lg hover:bg-card"
                   onClick={handleOrderBtn}
