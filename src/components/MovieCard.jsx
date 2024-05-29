@@ -7,8 +7,6 @@ const MovieCard = ({ movie }) => {
   const handleClick = () => {
     navigate(`/edit/${movie._id}`);
   };
-  // big 266px
-  //small 180px
   return (
     <div
       className="card-bg sm:p-2 rounded-xl cursor-pointer mx-auto max-w-fit "
