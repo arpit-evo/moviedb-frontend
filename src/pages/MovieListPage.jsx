@@ -10,6 +10,7 @@ const MovieListPage = () => {
   const [movieList, setMovieList] = useState([]);
   const [errorMessage, setError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const [movieCount, setMovieCount] = useState();
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const MovieListPage = () => {
           `/api/movie/?page=${currentPage}`
         );
         setMovieList(response.data.movies);
+        setMovieCount(response.data.movieCount);
       } catch (error) {
         setError(error.response?.data?.message || "An error occurred");
       }
@@ -45,6 +47,7 @@ const MovieListPage = () => {
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
           </div>
           <Pagination
+            count={movieCount}
             currentPage={currentPage}
             onPageChange={handlePageChange}
           />

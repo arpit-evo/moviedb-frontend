@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Pagination = ({ currentPage, onPageChange }) => {
+const Pagination = ({ count, currentPage, onPageChange }) => {
   const [leftPagiNum, setLeftPagiNum] = useState(currentPage);
   const [rightPagiNum, setRightPagiNum] = useState(currentPage + 1);
   const [isPrimaryColor, setPrimaryColor] = useState(true);
-
+  const totalPage = Math.ceil(count / 8);
   const handlePaginationBtn = (pageNum, e) => {
     if (e.target.innerHTML !== pageNum) {
       setPrimaryColor(!isPrimaryColor);
@@ -39,7 +39,7 @@ const Pagination = ({ currentPage, onPageChange }) => {
 
   return (
     <div className="body-regular w-fit items-center text-center flex gap-2 mx-auto mb-20 sm:mb-28">
-      {leftPagiNum - 1 > 0 && (
+      {currentPage - 1 > 0 ? (
         <Link
           to={`?page=${leftPagiNum - 1}`}
           className="pr-2 cursor-pointer"
@@ -47,6 +47,8 @@ const Pagination = ({ currentPage, onPageChange }) => {
         >
           Prev
         </Link>
+      ) : (
+        <span className="text-gray-400">Prev</span>
       )}
       <Link
         to={`?page=${leftPagiNum}`}
@@ -66,13 +68,17 @@ const Pagination = ({ currentPage, onPageChange }) => {
       >
         {rightPagiNum}
       </Link>
-      <Link
-        to={`?page=${currentPage + 1}`}
-        className="pl-2 cursor-pointer"
-        onClick={handleNextBtn}
-      >
-        Next
-      </Link>
+      {currentPage + 1 <= totalPage ? (
+        <Link
+          to={`?page=${currentPage + 1}`}
+          className="pl-2 cursor-pointer"
+          onClick={handleNextBtn}
+        >
+          Next
+        </Link>
+      ) : (
+        <span className="text-gray-400">Prev</span>
+      )}
     </div>
   );
 };
