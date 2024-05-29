@@ -94,10 +94,13 @@ export default {
       textColor: {
         input: "#224957",
       },
+      backgroundColor: {
+        card: "#092C39",
+      },
     },
-    aspectRatio:{
-      '2/3': '2 / 3',
-    }
+    aspectRatio: {
+      "2/3": "2 / 3",
+    },
   },
   plugins: [],
 };
