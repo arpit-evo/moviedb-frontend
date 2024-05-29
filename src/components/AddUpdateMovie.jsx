@@ -18,11 +18,9 @@ const AddUpdateMovie = () => {
     formState: { errors },
   } = useForm();
 
-  const token = Cookies.get("accessToken");
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const [isEdit, setIsEdit] = useState(!!id);
 
   const inputRef = useRef(null);
 
@@ -38,7 +36,7 @@ const AddUpdateMovie = () => {
     setError("");
   };
 
-  if (isEdit) {
+  if (id) {
     useEffect(() => {
       const fetchMovieById = async () => {
         try {
@@ -71,7 +69,7 @@ const AddUpdateMovie = () => {
     }
     setIsLoading(true);
     try {
-      if (isEdit) {
+      if (id) {
         await axiosInstance.put(
           `/api/movie/update/${id}`,
           {
@@ -113,7 +111,7 @@ const AddUpdateMovie = () => {
     <div className="px-6 py-20 sm:p-30">
       <h2 className="text-h3 mb-20 sm:text-h2">
         {" "}
-        {isEdit ? "Edit" : "Create a new Movie"}
+        {id ? "Edit" : "Create a new Movie"}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="sm:max-h-[31.5rem] sm:max-w-[68rem] sm:gap-x-32 sm:grid sm:grid-cols-2 sm:grid-flow-row ">
