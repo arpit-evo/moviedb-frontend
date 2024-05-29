@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   ACCESS_TOKEN_EXPIRE_TIME,
@@ -32,9 +31,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log("error", error);
     const originalRequest = error.config;
-    console.log(error.response.status);
     if (error.response.status === 401 && error.response) {
       originalRequest._retry = true;
       try {
@@ -60,8 +57,6 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        console.log(refreshError, "error on refresh token");
-        // navigate("/");
         return Promise.reject(refreshError);
       }
     }

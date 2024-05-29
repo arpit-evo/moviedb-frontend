@@ -9,7 +9,7 @@ import {
   REFRESH_TOKEN_EXPIRE_TIME_SHORT,
 } from "../globalVar";
 
-const SignInPage = ({ refreshAuth }) => {
+const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -47,7 +47,6 @@ const SignInPage = ({ refreshAuth }) => {
           : REFRESH_TOKEN_EXPIRE_TIME_SHORT,
       });
 
-      refreshAuth();
       navigate("/movie-list");
     } catch (error) {
       console.log(error);
