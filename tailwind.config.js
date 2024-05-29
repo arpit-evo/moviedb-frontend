@@ -95,6 +95,9 @@ export default {
         input: "#224957",
       },
     },
+    aspectRatio:{
+      '2/3': '2 / 3',
+    }
   },
   plugins: [],
 };
