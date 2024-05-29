@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import AddMoviePage from "./pages/AddMoviePage";
 import MovieListPage from "./pages/MovieListPage";
@@ -13,7 +13,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route element={<ProtectedRoutes />}>
-            <Route path="/movie-list" element={<MovieListPage />} />
+            <Route path="/" element={<Navigate to="/movie-list" />} />
+            <Route index path="/movie-list" element={<MovieListPage />} />
             <Route path="/add" element={<AddMoviePage />} />
             <Route path="/edit/:id" element={<UpdateMoviePage />} />
             <Route path="*" element={<NotFoundPage />} />
