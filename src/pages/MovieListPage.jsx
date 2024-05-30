@@ -8,6 +8,8 @@ import ListHeader from "../components/ListHeader";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
 import { IoClose } from "react-icons/io5";
+import { fast } from "@cloudinary/url-gen/qualifiers/FontAntialias";
+import { ClipLoader } from "react-spinners";
 
 const MovieListPage = () => {
   const [movieList, setMovieList] = useState([]);
@@ -18,6 +20,7 @@ const MovieListPage = () => {
   const [search, setSearch] = useState("");
   const [option, setOption] = useState("");
   const [sortBy, setSortBy] = useState({ sort: "title", order: "asc" });
+  const [loading, setLoading] = useState(false);
   const [reset, setReset] = useState(false);
 
   const navigate = useNavigate();
@@ -30,6 +33,7 @@ const MovieListPage = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoading(true);
       try {
         const response = await axiosInstance.get(
           `/api/movie/?page=${currentPage}&sort=${sortBy.sort},${sortBy.order}&search=${search}`
@@ -39,14 +43,18 @@ const MovieListPage = () => {
         setTotalCount(response.data.totalCount);
       } catch (error) {
         setError(error.response?.data?.message || "An error occurred");
+      } finally {
+        setLoading(false);
       }
     };
 
     if (refreshToken) {
       setTimeout(() => {
         fetchMovies();
-      }, 100);
+      }, 500);
+      setLoading(false);
     } else {
+      setLoading(false);
       navigate("/sign-in");
     }
   }, [currentPage, token, refreshToken, search, sortBy]);
@@ -77,6 +85,13 @@ const MovieListPage = () => {
     setSearch("");
     setSortBy({ sort: "title", order: "asc" });
     setReset(false);
+  };
+
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    height: "50px",
+    width: "50px",
   };
 
   return (
@@ -113,7 +128,15 @@ const MovieListPage = () => {
                 )}
               </div>
             </div>
-            {movieList.length ? (
+            {loading ? (
+              <div className="text-center">
+                <ClipLoader
+                  loading={loading}
+                  color="#fff"
+                  cssOverride={override}
+                />
+              </div>
+            ) : movieList.length ? (
               <>
                 <MovieList movies={movieList} />
                 {errorMessage && (
