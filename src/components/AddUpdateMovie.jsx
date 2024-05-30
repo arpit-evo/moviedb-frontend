@@ -16,6 +16,7 @@ const AddUpdateMovie = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const navigate = useNavigate();
@@ -41,6 +42,8 @@ const AddUpdateMovie = () => {
       const fetchMovieById = async () => {
         try {
           const response = await axiosInstance.get(`/api/movie/${id}`);
+          setValue("title", response.data.movie.title);
+          setValue("year", response.data.movie.publishingYear);
           setTitle(response.data.movie.title);
           setYear(response.data.movie.publishingYear);
           setTempUrl(response.data.movie.imageUrl);
