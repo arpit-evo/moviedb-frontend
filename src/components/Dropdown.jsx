@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const Dropdown = ({ onselect }) => {
-  const [selectedOption, setSelectedOption] = useState("");
+const Dropdown = ({ onselect, option }) => {
+  const [selectedOption, setSelectedOption] = useState(option);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (event) => {
-    setSelectedOption(event.target.innerText);
+    setSelectedOption(option);
     setIsOpen(false);
-    onselect(event.target.getAttribute("data-key"));
+    onselect(event.target.getAttribute("data-key"), event.target.innerText);
   };
+
+  useEffect(() => {
+    setSelectedOption(option);
+  }, [option,onselect]);
 
   return (
     <div className="w-fit">

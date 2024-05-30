@@ -7,6 +7,7 @@ import Dropdown from "../components/Dropdown";
 import ListHeader from "../components/ListHeader";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
+import { IoClose } from "react-icons/io5";
 
 const MovieListPage = () => {
   const [movieList, setMovieList] = useState([]);
@@ -15,22 +16,12 @@ const MovieListPage = () => {
   const [searchCount, setSearchCount] = useState(Number);
   const [totalCount, setTotalCount] = useState(Number);
   const [search, setSearch] = useState("");
+  const [option, setOption] = useState("");
   const [sortBy, setSortBy] = useState({ sort: "title", order: "asc" });
-
-  const handleSelect = (key) => {
-    setSortBy((prevSortBy) => ({
-      ...prevSortBy,
-      sort: key,
-    }));
-  };
+  const [reset, setReset] = useState(false);
 
   const navigate = useNavigate();
-  const handleOrderBtn = (e) => {
-    setSortBy((prevSortBy) => ({
-      ...prevSortBy,
-      order: prevSortBy.order === "asc" ? "desc" : "asc",
-    }));
-  };
+
   const currentPage =
     Number(searchParams.get("page")) > 1 ? Number(searchParams.get("page")) : 1;
 
@@ -54,14 +45,38 @@ const MovieListPage = () => {
     if (refreshToken) {
       setTimeout(() => {
         fetchMovies();
-      }, 500);
+      }, 100);
     } else {
       navigate("/sign-in");
     }
   }, [currentPage, token, refreshToken, search, sortBy]);
 
+  const handleSelect = (key, option) => {
+    setSortBy((prevSortBy) => ({
+      ...prevSortBy,
+      sort: key,
+    }));
+    setOption(option);
+    setReset(true);
+  };
+
+  const handleOrderBtn = () => {
+    setSortBy((prevSortBy) => ({
+      ...prevSortBy,
+      order: prevSortBy.order === "asc" ? "desc" : "asc",
+    }));
+    setReset(true);
+  };
+
   const handlePageChange = (newPage) => {
     setSearchParams({ page: newPage });
+  };
+
+  const handleReset = () => {
+    setOption("");
+    setSearch("");
+    setSortBy({ sort: "title", order: "asc" });
+    setReset(false);
   };
 
   return (
@@ -81,22 +96,35 @@ const MovieListPage = () => {
                 <RiSearchLine className="text-2xl mx-2" />
               </div>
               <div className="flex items-center text-center gap-3">
-                <Dropdown onselect={handleSelect} />
+                <Dropdown onselect={handleSelect} option={option} />
                 <button
                   className="input-bg px-4 py-2 text-sm rounded-lg hover:bg-card"
                   onClick={handleOrderBtn}
                 >
                   {sortBy.order.toUpperCase()}
                 </button>
+                {reset && (
+                  <button
+                    className="input-bg px-2 h-full text-sm rounded-lg hover:bg-card "
+                    onClick={handleReset}
+                  >
+                    <IoClose className="text-2xl" />
+                  </button>
+                )}
               </div>
             </div>
             {movieList.length ? (
-              <MovieList movies={movieList} />
+              <>
+                <MovieList movies={movieList} />
+                {errorMessage && (
+                  <div className="text-red-500">{errorMessage}</div>
+                )}
+              </>
             ) : (
               <div className="text-bl text-center">Movies Not Found</div>
             )}
-            {errorMessage && <div className="text-red-500">{errorMessage}</div>}
           </div>
+
           <Pagination
             count={searchCount}
             currentPage={currentPage}
