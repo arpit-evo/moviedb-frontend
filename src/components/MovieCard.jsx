@@ -12,7 +12,7 @@ const MovieCard = ({ movie }) => {
       className="card-bg sm:p-2 rounded-xl cursor-pointer mx-auto max-w-fit "
       onClick={handleClick}
     >
-      <div className=" sm:mb-4 ">
+      <div className=" sm:mb-4 sm:h-[400px] ">
         <img
           src={movie.imageUrl}
           alt="movie poster"
