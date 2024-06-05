@@ -24,8 +24,16 @@ const ListHeader = () => {
         />
       </FlexContainer>
       <FlexContainer>
-        <p className="hidden sm:block sm:text-br">Logout</p>
-        <MdLogout className="text-2xl sm:text-[32px]" onClick={handlelogout} />
+        <p
+          className="hidden sm:block sm:text-br cursor-pointer"
+          onClick={handlelogout}
+        >
+          Logout
+        </p>
+        <MdLogout
+          className="text-2xl sm:text-[32px] cursor-pointer"
+          onClick={handlelogout}
+        />
       </FlexContainer>
     </div>
   );
